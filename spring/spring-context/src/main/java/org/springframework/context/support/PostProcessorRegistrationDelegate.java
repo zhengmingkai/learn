@@ -183,6 +183,7 @@ class PostProcessorRegistrationDelegate {
 		beanFactory.clearMetadataCache();
 	}
 
+	//获取用户自定义的实现了BeanPostProcessor接口的子类，并注册到beanFactory的beanPostProcessors变量
 	public static void registerBeanPostProcessors(
 			ConfigurableListableBeanFactory beanFactory, AbstractApplicationContext applicationContext) {
 

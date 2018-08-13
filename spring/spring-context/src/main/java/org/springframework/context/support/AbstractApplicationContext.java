@@ -544,6 +544,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 				// Register bean processors that intercept bean creation.
 				//为BeanFactory注册BeanPost事件处理器.
 				//BeanPostProcessor是Bean后置处理器，用于监听容器触发的事件
+				//获取用户自定义的实现了BeanPostProcessor接口的子类，并注册到beanFactory的beanPostProcessors变量
 				registerBeanPostProcessors(beanFactory);
 
 				// Initialize message source for this context.
@@ -711,6 +712,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * respecting explicit order if given.
 	 * <p>Must be called before singleton instantiation.
 	 */
+	//获取实现BeanFactoryPostProcessors接口的子类。并执行它的postProcessBeanFactory方法
 	protected void invokeBeanFactoryPostProcessors(ConfigurableListableBeanFactory beanFactory) {
 		PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(beanFactory, getBeanFactoryPostProcessors());
 
@@ -727,6 +729,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 	 * respecting explicit order if given.
 	 * <p>Must be called before any instantiation of application beans.
 	 */
+	//获取用户自定义的实现了BeanPostProcessor接口的子类，并注册到beanFactory的beanPostProcessors变量
 	protected void registerBeanPostProcessors(ConfigurableListableBeanFactory beanFactory) {
 		PostProcessorRegistrationDelegate.registerBeanPostProcessors(beanFactory, this);
 	}
@@ -892,7 +895,7 @@ public abstract class AbstractApplicationContext extends DefaultResourceLoader
 		beanFactory.freezeConfiguration();
 
 		// Instantiate all remaining (non-lazy-init) singletons.
-		//对配置了lazy-init属性的单态模式Bean进行预实例化处理
+		//对配置了lazy-init属性的单态模式Bean进行预实例化处理,lazy-init=false
 		beanFactory.preInstantiateSingletons();
 	}
 
